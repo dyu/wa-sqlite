@@ -4,10 +4,10 @@
   "type": "module",
   "main": "src/sqlite-api.js",
   "types": "src/types/index.d.ts",
-  "homepage": "https://vlcn.io",
+  "homepage": "https://github.com/dyu/wa-sqlite",
   "repository": {
     "type": "git",
-    "url": "git://github.com/vlcn-io/wa-sqlite"
+    "url": "https://github.com/dyu/wa-sqlite.git"
   },
   "files": [
     "src/sqlite-constants.js",
