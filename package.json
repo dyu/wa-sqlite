@@ -1,5 +1,5 @@
 {
-  "name": "@vlcn.io/wa-sqlite",
+  "name": "@dyu/wa-sqlite",
   "version": "0.15.0",
   "type": "module",
   "main": "src/sqlite-api.js",
