@@ -1,12 +1,14 @@
+SHELL := /bin/bash
+
 # dependencies
 
-SQLITE_AMALGAMATION = sqlite-amalgamation-3400000
-SQLITE_AMALGAMATION_ZIP_URL = https://www.sqlite.org/2022/${SQLITE_AMALGAMATION}.zip
-SQLITE_AMALGAMATION_ZIP_SHA = 7c23eb51409315738c930a222cf7cd41518ae5823c41e60a81b93a07070ef22a
+SQLITE_AMALGAMATION = sqlite-amalgamation-3410200
+SQLITE_AMALGAMATION_ZIP_URL = https://www.sqlite.org/2023/${SQLITE_AMALGAMATION}.zip
+SQLITE_AMALGAMATION_ZIP_SHA = c51ca72411b8453c64e0980be23bc9b9530bdc3ec1513e06fbf022ed0fd02463
 
 EXTENSION_FUNCTIONS = extension-functions.c
 EXTENSION_FUNCTIONS_URL = https://www.sqlite.org/contrib/download/extension-functions.c?get=25
-EXTENSION_FUNCTIONS_SHA = 991b40fe8b2799edc215f7260b890f14a833512c9d9896aa080891330ffe4052
+EXTENSION_FUNCTIONS_SHA = ee39ddf5eaa21e1d0ebcbceeab42822dd0c4f82d8039ce173fd4814807faabfa
 
 # source files
 
@@ -166,19 +168,19 @@ deps: deps/$(SQLITE_AMALGAMATION) deps/$(EXTENSION_FUNCTIONS) $(EXPORTED_FUNCTIO
 
 deps/$(SQLITE_AMALGAMATION): cache/$(SQLITE_AMALGAMATION).zip
 	mkdir -p deps
-	openssl dgst -sha256 -r cache/$(SQLITE_AMALGAMATION).zip | sed -e 's/ .*//' > deps/sha
-	echo $(SQLITE_AMALGAMATION_ZIP_SHA) > deps/sha-expected
-	cmp deps/sha deps/sha-expected
-	rm -rf deps/sha deps/sha-expected $@
+	# verify checksum
+	diff -q <(echo $(SQLITE_AMALGAMATION_ZIP_SHA)) \
+		<(echo $$(openssl dgst -sha3-256 cache/$(SQLITE_AMALGAMATION).zip | awk '{print $$NF}'))
+	# unpack
 	unzip 'cache/$(SQLITE_AMALGAMATION).zip' -d deps/
 	touch $@
 
 deps/$(EXTENSION_FUNCTIONS): cache/$(EXTENSION_FUNCTIONS)
 	mkdir -p deps
-	openssl dgst -sha256 -r cache/$(EXTENSION_FUNCTIONS) | sed -e 's/ .*//' > deps/sha
-	echo $(EXTENSION_FUNCTIONS_SHA) > deps/sha-expected
-	cmp deps/sha deps/sha-expected
-	rm -rf deps/sha deps/sha-expected $@
+	# verify checksum
+	diff -q <(echo $(EXTENSION_FUNCTIONS_SHA)) \
+		<(echo $$(openssl dgst -sha3-256 cache/$(EXTENSION_FUNCTIONS) | awk '{print $$NF}'))
+	# copy
 	cp 'cache/$(EXTENSION_FUNCTIONS)' $@
 
 ## tmp
