@@ -1,13 +1,13 @@
 {
-  "name": "@vlcn.io/wa-sqlite",
+  "name": "@dyu/wa-sqlite",
   "version": "0.16.1-next.0",
   "type": "module",
   "main": "src/sqlite-api.js",
   "types": "src/types/index.d.ts",
-  "homepage": "https://vlcn.io",
+  "homepage": "https://github.com/dyu/wa-sqlite",
   "repository": {
     "type": "git",
-    "url": "git://github.com/vlcn-io/wa-sqlite"
+    "url": "git://github.com/dyu/wa-sqlite"
   },
   "files": [
     "src/sqlite-constants.js",
