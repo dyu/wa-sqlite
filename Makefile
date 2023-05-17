@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 # dependencies
 
 SQLITE_AMALGAMATION = sqlite-amalgamation-3410200
