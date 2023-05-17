@@ -12,6 +12,6 @@ npm version $VERSION --message "[release] $VERSION"
 
 # publish
 git push origin refs/tags/v$VERSION
-git push -u origin main
+git push -u origin cr-sqlite
 npm publish --access public
 echo "Released $VERSION"
