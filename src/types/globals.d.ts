@@ -57,3 +57,5 @@ declare var _modFindFunction;
 declare var _modRename;
 
 declare var _jsAuth;
+
+declare var _jsProgress;
