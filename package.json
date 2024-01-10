@@ -1,9 +1,14 @@
 {
-  "name": "wa-sqlite",
+  "name": "@dyu/wa-sqlite",
   "version": "0.9.9",
   "type": "module",
   "main": "src/sqlite-api.js",
   "types": "src/types/index.d.ts",
+  "homepage": "https://github.com/dyu/wa-sqlite",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dyu/wa-sqlite"
+  },
   "files": [
     "src/sqlite-constants.js",
     "src/sqlite-api.js",
