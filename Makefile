@@ -1,5 +1,5 @@
 # dependencies
-SQLITE_VERSION = version-3.44.0
+SQLITE_VERSION = version-3.44.2
 SQLITE_TARBALL_URL = https://www.sqlite.org/src/tarball/sqlite.tar.gz?r=${SQLITE_VERSION}
 
 EXTENSION_FUNCTIONS = extension-functions.c
@@ -96,6 +96,9 @@ WASQLITE_DEFINES = \
 	-DSQLITE_THREADSAFE=0 \
 	-DSQLITE_USE_ALLOCA \
 	-DSQLITE_ENABLE_BATCH_ATOMIC_WRITE \
+	-DSQLITE_ENABLE_FTS3 \
+	-DSQLITE_ENABLE_FTS4 \
+	-DSQLITE_ENABLE_FTS5 \
 	$(WASQLITE_EXTRA_DEFINES)
 
 # directories
