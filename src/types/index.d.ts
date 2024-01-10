@@ -282,7 +282,7 @@ declare interface SQLiteModule {
  * import SQLiteESMFactory from '@dyu/wa-sqlite/dist/wa-sqlite.mjs';
  * 
  * // Import the Javascript API wrappers.
- * import * as SQLite from 'wa-sqlite';
+ * import * as SQLite from '@dyu/wa-sqlite';
  * 
  * // Use an async function to simplify Promise handling.
  * (async function() {
@@ -1284,7 +1284,7 @@ declare module '@dyu/wa-sqlite/src/sqlite-constants.js' {
 }
 
 /** @ignore */
-declare module 'wa-sqlite' {
+declare module '@dyu/wa-sqlite' {
   export * from '@dyu/wa-sqlite/src/sqlite-constants.js';
 
   /**
