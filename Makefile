@@ -1,6 +1,7 @@
 # dependencies
 SQLITE_VERSION = version-3.44.2
-SQLITE_TARBALL_URL = https://www.sqlite.org/src/tarball/sqlite.tar.gz?r=${SQLITE_VERSION}
+#SQLITE_TARBALL_URL = https://www.sqlite.org/src/tarball/sqlite.tar.gz?r=${SQLITE_VERSION}
+SQLITE_TARBALL_URL = https://github.com/utelle/SQLite3MultipleCiphers/releases/download/v1.8.1/sqlite3mc-1.8.1-sqlite-3.44.2-amalgamation.zip
 
 EXTENSION_FUNCTIONS = extension-functions.c
 EXTENSION_FUNCTIONS_URL = https://www.sqlite.org/contrib/download/extension-functions.c?get=25
@@ -83,6 +84,7 @@ EMFLAGS_ASYNCIFY_DIST = \
 
 # https://www.sqlite.org/compile.html
 WASQLITE_DEFINES = \
+	-DCODEC_TYPE=CODEC_TYPE_AES256 \
 	-DSQLITE_DEFAULT_MEMSTATUS=0 \
 	-DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1 \
 	-DSQLITE_DQS=0 \
@@ -94,7 +96,6 @@ WASQLITE_DEFINES = \
 	-DSQLITE_OMIT_DECLTYPE \
 	-DSQLITE_OMIT_DEPRECATED \
 	-DSQLITE_OMIT_LOAD_EXTENSION \
-	-DSQLITE_OMIT_SHARED_CACHE \
 	-DSQLITE_THREADSAFE=0 \
 	-DSQLITE_USE_ALLOCA \
 	-DSQLITE_ENABLE_BATCH_ATOMIC_WRITE \
@@ -104,6 +105,7 @@ WASQLITE_DEFINES = \
 	-DSQLITE_ENABLE_MATH_FUNCTIONS \
 	-DSQLITE_ENABLE_RTREE \
 	$(WASQLITE_EXTRA_DEFINES)
+#	-DSQLITE_OMIT_SHARED_CACHE
 
 # directories
 .PHONY: all
@@ -133,9 +135,15 @@ clean-deps:
 
 deps/$(SQLITE_VERSION)/sqlite3.h deps/$(SQLITE_VERSION)/sqlite3.c:
 	mkdir -p cache/$(SQLITE_VERSION)
-	curl -LsS $(SQLITE_TARBALL_URL) | tar -xzf - -C cache/$(SQLITE_VERSION)/ --strip-components=1
+	#curl -LsS $(SQLITE_TARBALL_URL) | tar -xzf - -C cache/$(SQLITE_VERSION)/ --strip-components=1
+	#mkdir -p deps/$(SQLITE_VERSION)
+	#(cd deps/$(SQLITE_VERSION); ../../cache/$(SQLITE_VERSION)/configure --enable-all && make sqlite3.c)
+	test -f cache/sqlite.zip || curl -L -o cache/sqlite.zip $(SQLITE_TARBALL_URL)
+	test -d cache/sqlite || unzip -d cache/sqlite cache/sqlite.zip
 	mkdir -p deps/$(SQLITE_VERSION)
-	(cd deps/$(SQLITE_VERSION); ../../cache/$(SQLITE_VERSION)/configure --enable-all && make sqlite3.c)
+	cp cache/sqlite/sqlite3ext.h deps/$(SQLITE_VERSION)/
+	cp cache/sqlite/sqlite3mc_amalgamation.h deps/$(SQLITE_VERSION)/sqlite3.h
+	cp cache/sqlite/sqlite3mc_amalgamation.c deps/$(SQLITE_VERSION)/sqlite3.c
 
 deps/$(EXTENSION_FUNCTIONS): cache/$(EXTENSION_FUNCTIONS)
 	mkdir -p deps
